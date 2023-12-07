@@ -14,7 +14,7 @@
     <header class="navbar navbar-light fixed-top bg-light shadow-sm mb-auto">
         <div class="container-fluid mx-4">
             <a href="../index.php">
-                <img src="../https://www.gmi.edu.my/wp-content/uploads/2019/06/logo-gmi-header.png" width="125" class="me-2" alt="EATERIO Logo">
+                <img src="https://www.gmi.edu.my/wp-content/uploads/2019/06/logo-gmi-header.png" width="125" class="me-2" alt="EATERIO Logo">
             </a>
         </div>
     </header>

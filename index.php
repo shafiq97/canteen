@@ -23,7 +23,7 @@
 
     <div class="position-relative d-flex text-center text-white promo-banner-bg py-3">
         <div class="p-lg-2 mx-auto my-5">
-            <h1 class="display-5 fw-normal">Welcome to EATERIO</h1>
+            <h1 class="display-5 fw-normal">Welcome to Canteen NFC</h1>
             <p class="lead fw-normal">Canteen NFC Payment</p>
             <span class="xsmall-font text-muted">Food photo created by jcomp - www.freepik.com</span>
         </div>
