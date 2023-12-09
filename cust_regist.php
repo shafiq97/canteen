@@ -85,10 +85,9 @@
                 <label for="gender">Your role</label>
             </div>
             <div class="form-floating mb-2" id="studentListContainer" style="display: none;">
-                <select class="form-select" id="studentList">
+                <select class="form-select" id="studentList" name="student_id">
                     <!-- Student options will be dynamically added here -->
                 </select>
-                <!-- <label for="studentList">Select Child</label> -->
             </div>
 
             <div class="form-floating">
