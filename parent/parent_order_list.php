@@ -46,7 +46,7 @@ if (empty($children_ids)) {
             ($additional_conditions_str ? " AND $additional_conditions_str" : "") .
             " ORDER BY orh.orh_ordertime DESC;";
     } else {
-        $query = "SELECT orh.orh_id, orh.orh_refcode, orh.orh_ordertime, c.c_firstname, c.c_lastname, 
+        $query = "SELECT orh.orh_id, orh.orh_refcode, orh.orh_ordertime, c.c_firstname, c.c_lastname, c.c_email,
         orh.orh_orderstatus, s.s_name, p.p_type, 
         SUM(od.ord_amount * od.ord_buyprice) AS order_total
         FROM order_header orh
@@ -284,7 +284,7 @@ if (empty($children_ids)) {
                                             <input type="hidden" name="orh_id" value="<?php echo $row["orh_id"]; ?>">
                                             <input type="hidden" name="order_total" value="<?php echo $row["order_total"]; ?>">
                                             <input type="hidden" name="customer_name" value="<?php echo $row["c_firstname"] . " " . $row["c_lastname"]; ?>">
-                                            <input type="hidden" name="customer_email" value="<?php // Put customer email here 
+                                            <input type="hidden" name="customer_email" value="<?php echo $row["c_email"] // Put customer email here 
                                                                                                 ?>">
                                             <button type="submit" class="btn btn-sm btn-outline-success">Pay</button>
                                         </form>
