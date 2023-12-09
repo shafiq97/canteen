@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/login.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <title>Customer Registration | EATERIO</title>
 </head>
@@ -72,6 +75,7 @@
                 <select class="form-select mb-2" id="type" name="type">
                     <option selected value="-">---</option>
                     <option value="STD">Student</option>
+                    <option value="PRT">Parent</option>
                     <option value="INS">Professor</option>
                     <option value="TAS">Teaching Assistant</option>
                     <option value="STF">Faculty Staff</option>
@@ -80,6 +84,13 @@
                 </select>
                 <label for="gender">Your role</label>
             </div>
+            <div class="form-floating mb-2" id="studentListContainer" style="display: none;">
+                <select class="form-select" id="studentList">
+                    <!-- Student options will be dynamically added here -->
+                </select>
+                <!-- <label for="studentList">Select Child</label> -->
+            </div>
+
             <div class="form-floating">
                 <div class="mb-2 form-check">
                     <input type="checkbox" class="form-check-input " id="tandc" name="tandc" required>
@@ -98,6 +109,13 @@
         </ul>
     </footer>
     <script>
+        $(document).ready(function() {
+            $('#studentList').select2({
+                placeholder: "Select a student",
+                allowClear: true
+            });
+        });
+
         document.getElementById('type').addEventListener('change', function() {
             var typeSelect = document.getElementById('type');
             var nfcPrompt = document.getElementById('nfcPrompt');
@@ -106,7 +124,33 @@
             } else {
                 nfcPrompt.style.display = 'none';
             }
+            if (typeSelect.value === 'PRT') {
+                loadAndDisplayStudents();
+                studentListContainer.style.display = 'block'; // Show student list
+            } else {
+                studentListContainer.style.display = 'none'; // Hide student list
+            }
         });
+
+        function loadAndDisplayStudents() {
+            fetch('get_students.php') // Adjust the URL to your PHP script
+                .then(response => response.json())
+                .then(students => {
+                    var studentList = document.getElementById('studentList');
+                    studentList.innerHTML = ''; // Clear existing list
+
+                    students.forEach(student => {
+                        var option = document.createElement('option');
+                        option.value = student.c_id; // Use 'c_id' for the value
+                        option.textContent = student.c_username; // Use 'c_username' for the text
+                        studentList.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching students:', error);
+                });
+        }
+
 
         function checkForNfcData() {
             fetch('http://localhost:5001/get_uid')

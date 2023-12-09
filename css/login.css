@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  font-family: 'Poppins', 'Noto Sans Thai',  sans-serif;
+  font-family: "Poppins", "Noto Sans Thai", sans-serif;
 }
 
 body {
@@ -17,7 +17,8 @@ body {
   margin: auto;
 }
 
-.reg-success,.reg-fail{
+.reg-success,
+.reg-fail {
   max-width: 400px !important;
 }
 
@@ -49,14 +50,24 @@ body {
   font-weight: 600;
 }
 
-.reg-text{
+.reg-text {
   font-weight: 400;
 }
 
-.rounded-25{
+.rounded-25 {
   border-radius: 25px;
 }
 
-.restricted{
+.restricted {
   max-width: 500px !important;
+}
+
+.select2-container--default .select2-selection--single {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select2-container {
+  width: 100% !important;
 }

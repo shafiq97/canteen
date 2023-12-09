@@ -364,8 +364,9 @@
                                         ?>
                                     </button>
                                 <?php } else { ?>
-                                    <script type="text/javascript" src="https://cdn.omise.co/omise.js" data-key="pkey_test_5pj8zasgcvaasrujrrs" data-image="/blob/9852a00d8e47b50cbe428a7f7ec763446ac273b4/img/ICON_F.png" data-frame-label="EATERIO" data-button-label="Proceed with payment" data-submit-label="Tap your NFC" data-locale="en" data-location="no" data-amount="<?php echo $order_cost * 100; ?>" data-currency="myr">
-                                    </script>
+                                    <!-- <script type="text/javascript" src="https://cdn.omise.co/omise.js" data-key="pkey_test_5pj8zasgcvaasrujrrs" data-image="/blob/9852a00d8e47b50cbe428a7f7ec763446ac273b4/img/ICON_F.png" data-frame-label="EATERIO" data-button-label="Proceed with payment" data-submit-label="Tap your NFC" data-locale="en" data-location="no" data-amount="<?php echo $order_cost * 100; ?>" data-currency="myr">
+                                    </script> -->
+                                    <button class="w-100 btn btn-success" type="submit">Proceed with credit payment</button>
                                 <?php } ?>
                             </div>
                         </form>
@@ -396,9 +397,9 @@
 </body>
 
 <!-- Apply class to omise payment button -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     var pay_btn = document.getElementsByClassName("omise-checkout-button");
     pay_btn[0].classList.add("w-100", "btn", "btn-primary");
-</script>
+</script> -->
 
 </html>
