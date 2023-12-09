@@ -147,15 +147,36 @@
                             <p class="card-text my-2">
                                 <span class="h5">
                                     <?php
-                                    $cust_query = "SELECT COUNT(*) AS cnt FROM order_header;";
-                                    $cust_arr = $mysqli->query($cust_query)->fetch_array();
-                                    echo $cust_arr["cnt"];
+                                    // Assuming $_SESSION['parent_id'] contains the logged-in parent's ID.
+                                    $parent_id = $_SESSION['parent_id'];
+
+                                    // Get all student IDs associated with the parent ID.
+                                    $student_ids_query = "SELECT student_id FROM parent_student WHERE parent_id = '$parent_id';";
+                                    $student_ids_result = $mysqli->query($student_ids_query);
+
+                                    $student_ids = [];
+                                    while ($row = $student_ids_result->fetch_assoc()) {
+                                        $student_ids[] = $row['student_id'];
+                                    }
+                                    $student_ids_result->free_result();
+
+                                    // Convert the student IDs array into a string for the SQL query.
+                                    $student_ids_str = implode(',', $student_ids);
+
+                                    // Query to count orders from the parent's children.
+                                    $orders_query = "SELECT COUNT(*) AS cnt FROM order_header WHERE c_id IN ($student_ids_str);";
+                                    $orders_result = $mysqli->query($orders_query);
+
+                                    // Fetch the count and display it.
+                                    $orders_count = $orders_result->fetch_array();
+                                    echo $orders_count["cnt"];
                                     ?>
+
                                 </span>
                                 order(s) in the system
                             </p>
                             <div class="text-end">
-                                <a href="admin_order_list.php" class="btn btn-sm btn-outline-dark">Go to Order List</a>
+                                <a href="parent_order_list.php" class="btn btn-sm btn-outline-dark">Go to Order List</a>
                             </div>
                         </div>
                     </div>

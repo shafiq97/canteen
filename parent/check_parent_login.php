@@ -12,7 +12,7 @@
         //customer login
         $row = $result -> fetch_array();
         session_start();
-        $_SESSION["aid"] = $row["c_id"];
+        $_SESSION["parent_id"] = $row["c_id"];
         $_SESSION["firstname"] = $row["c_firstname"];
         $_SESSION["lastname"] = $row["c_lastname"];
         $_SESSION["utype"] = "PARENT";

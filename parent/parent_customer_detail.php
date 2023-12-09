@@ -6,7 +6,7 @@
     session_start(); 
     include("../conn_db.php"); 
     include('../head.php');
-    if($_SESSION["utype"]!="ADMIN"){
+    if($_SESSION["utype"]!="PARENT"){
         header("location: ../restricted.php");
         exit(1);
     }
@@ -67,10 +67,10 @@
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
                     <path fill-rule="evenodd"
                         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                </svg> My Profile</h2>
+                </svg> Student Profile</h2>
         </div>
 
-        <a class="btn btn-sm btn-outline-secondary" href="admin_customer_pwd.php?c_id=<?php echo $_GET["c_id"]?>">
+        <!-- <a class="btn btn-sm btn-outline-secondary" href="admin_customer_pwd.php?c_id=<?php echo $_GET["c_id"]?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key"
                 viewBox="0 0 16 16">
                 <path
@@ -78,8 +78,8 @@
                 <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
             </svg>
             Change password
-        </a>
-        <a class="btn btn-sm btn-primary mt-2 mt-md-0" href="admin_customer_edit.php?c_id=<?php echo $_GET["c_id"]?>">
+        </a> -->
+        <!-- <a class="btn btn-sm btn-primary mt-2 mt-md-0" href="admin_customer_edit.php?c_id=<?php echo $_GET["c_id"]?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path
@@ -88,8 +88,8 @@
                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
             </svg>
             Update profile
-        </a>
-        <a class="btn btn-sm btn-danger mt-2 mt-md-0" href="admin_customer_delete.php?c_id=<?php echo $_GET["c_id"]?>">
+        </a> -->
+        <!-- <a class="btn btn-sm btn-danger mt-2 mt-md-0" href="admin_customer_delete.php?c_id=<?php echo $_GET["c_id"]?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                 viewBox="0 0 16 16">
                 <path
@@ -98,7 +98,7 @@
                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
             </svg>
             Delete this profile
-        </a>
+        </a> -->
 
         <!-- START CUSTOMER INFORMATION -->
         <?php

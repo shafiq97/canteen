@@ -5,7 +5,7 @@
     <?php 
         session_start(); 
         include("../conn_db.php"); 
-        if($_SESSION["utype"]!="ADMIN"){
+        if($_SESSION["utype"]!="PARENT"){
             header("location: ../restricted.php");
             exit(1);
         }
