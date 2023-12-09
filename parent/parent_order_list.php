@@ -46,17 +46,38 @@ if (empty($children_ids)) {
             ($additional_conditions_str ? " AND $additional_conditions_str" : "") .
             " ORDER BY orh.orh_ordertime DESC;";
     } else {
-        $query = "SELECT orh.orh_id, orh.orh_refcode, orh.orh_ordertime, c.c_firstname, c.c_lastname, c.c_email,
-        orh.orh_orderstatus, s.s_name, p.p_type, 
+        $query = "SELECT 
+        orh.orh_id, 
+        orh.orh_refcode, 
+        orh.orh_ordertime, 
+        c.c_firstname, 
+        c.c_lastname, 
+        c.c_email,
+        orh.orh_orderstatus, 
+        s.s_name, 
+        p.p_type, 
+        p.p_id,
         SUM(od.ord_amount * od.ord_buyprice) AS order_total
-        FROM order_header orh
+      FROM 
+        order_header orh
         INNER JOIN customer c ON orh.c_id = c.c_id
         INNER JOIN shop s ON orh.s_id = s.s_id
         INNER JOIN order_detail od ON orh.orh_id = od.orh_id
-        LEFT JOIN payment p ON c.c_id = p.c_id
-        WHERE orh.c_id IN ($children_ids_str)
-        GROUP BY orh.orh_id
-        ORDER BY orh.orh_ordertime DESC;";
+        LEFT JOIN payment p ON orh.p_id = p.p_id
+      WHERE 
+        orh.c_id IN ($children_ids_str)
+      GROUP BY 
+        orh.orh_id, 
+        orh.orh_refcode, 
+        orh.orh_ordertime, 
+        c.c_firstname, 
+        c.c_lastname, 
+        c.c_email,
+        orh.orh_orderstatus, 
+        s.s_name, 
+        p.p_type
+      ORDER BY 
+        orh.orh_ordertime DESC;";
     }
     $result = $mysqli->query($query);
     $numrow = $result->num_rows;
@@ -279,9 +300,10 @@ if (empty($children_ids)) {
                                 <td><?php echo $row["c_firstname"] . " " . $row["c_lastname"]; ?></td>
                                 <td><?php echo number_format($row["order_total"], 2) . " MYR"; ?></td>
                                 <td>
-                                    <?php if ($row["p_type"] === 'UNKN') { ?>
+                                    <?php if ($row["p_type"] == 'UNKN') { ?>
                                         <form action="parent_pay_order.php" method="post">
                                             <input type="hidden" name="orh_id" value="<?php echo $row["orh_id"]; ?>">
+                                            <input type="hidden" name="payment_id" value="<?php echo $row["p_id"]; ?>">
                                             <input type="hidden" name="order_total" value="<?php echo $row["order_total"]; ?>">
                                             <input type="hidden" name="customer_name" value="<?php echo $row["c_firstname"] . " " . $row["c_lastname"]; ?>">
                                             <input type="hidden" name="customer_email" value="<?php echo $row["c_email"] // Put customer email here 

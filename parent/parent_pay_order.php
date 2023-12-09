@@ -12,12 +12,15 @@ if ($_SESSION["utype"] != "PARENT") {
 
 // Assume $_POST['orh_id'], $_POST['order_total'], $_POST['customer_name'], and $_POST['customer_email'] are set and validated
 $orh_id = $_POST['orh_id'];
+$payment_id = $_POST['payment_id'];
 $order_total = $_POST['order_total'];
 $customer_name = $_POST['customer_name'];
 $customer_email = $_POST['customer_email'];
 
 // Payment gateway data
-$harga = $order_total; // Assuming the total price is already in the correct format
+// $harga = $order_total; // Assuming the total price is already in the correct format
+$harga = 1; // Assuming the total price is already in the correct format
+
 $nama = $customer_name;
 $email = $customer_email;
 
@@ -33,8 +36,8 @@ $some_data = array(
   'billPriceSetting' => 1,
   'billPayorInfo' => 1,
   'billAmount' => $rmx100,
-  'billReturnUrl' => 'http://www.youtube.com',
-  'billCallbackUrl' => '',
+  'billReturnUrl' => 'https://5c54-115-164-119-209.ngrok-free.app/eaterio/parent/update_payment.php?payment_id='.$payment_id,
+  'billCallbackUrl' => 'https://5c54-115-164-119-209.ngrok-free.app/eaterio/parent/update_payment.php',
   'billExternalReferenceNo' => '',
   'billTo' => $nama,
   'billEmail' => $email,
