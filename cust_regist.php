@@ -85,7 +85,7 @@
                 <label for="gender">Your role</label>
             </div>
             <div class="form-floating">
-                <select class="form-select mb-2" id="type" name="income_group">
+                <select class="form-select mb-2" id="income_group" name="income_group">
                     <option selected value="-">---</option>
                     <option value="B40">B40</option>
                     <option value="M40">M40</option>
@@ -150,7 +150,7 @@
                     students.forEach(student => {
                         var option = document.createElement('option');
                         option.value = student.c_id; // Use 'c_id' for the value
-                        option.textContent = student.c_username; // Use 'c_username' for the text
+                        option.textContent = student.c_firstname; // Use 'c_username' for the text
                         studentList.appendChild(option);
                     });
                 })

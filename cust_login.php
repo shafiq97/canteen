@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <?php session_start(); include("conn_db.php"); include('head.php');?>
+    <?php session_start();
+    include("conn_db.php");
+    include('head.php'); ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="css/login.css" rel="stylesheet">
@@ -21,7 +23,7 @@
 
     <div class="container form-signin mt-auto">
         <a class="nav nav-item text-decoration-none text-muted" href="#" onclick="history.back();">
-            <i class="bi bi-arrow-left-square me-2"></i>Go back 
+            <i class="bi bi-arrow-left-square me-2"></i>Go back
         </a>
         <form method="POST" action="check_login.php" class="form-floating">
             <h2 class="mt-4 mb-3 fw-normal text-bold"><i class="bi bi-door-open me-2"></i>Log In</h2>
@@ -49,14 +51,30 @@
         </form>
     </div>
 
-    <footer
-        class="footer d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-auto bg-secondary text-light">
+    <footer class="footer d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-auto bg-secondary text-light">
         <span class="smaller-font">&copy; 2023 German Malaysian Institue<br /><span class="xsmall-font"><a href="admin/admin_login.php" class="text-decoration-none text-light"> Rezza</a> </span></span>
         <ul class="nav justify-content-end list-unstyled d-flex">
-            <li class="ms-3"><a class="text-light" target="_blank" href=""><i
-                        class="bi bi-github"></i></a></li>
+            <li class="ms-3"><a class="text-light" target="_blank" href=""><i class="bi bi-github"></i></a></li>
         </ul>
     </footer>
+    <script>
+        function checkForNfcData() {
+            fetch('http://localhost:5001/get_uid')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.uid) {
+                        // Convert UID to string and remove commas
+                        var uidString = String(data.uid).replace(/,/g, '');
+                        document.getElementById('floatingInput').value = uidString;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching NFC data:', error);
+                });
+        }
+
+        setInterval(checkForNfcData, 1000); // Check every 2 seconds
+    </script>
 </body>
 
 </html>
