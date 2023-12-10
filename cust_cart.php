@@ -11,6 +11,7 @@
     include("conn_db.php");
     include('head.php');
     $no_order = false;
+
     ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -271,8 +272,31 @@
                                         ON ct.f_id = f.f_id WHERE ct.c_id = {$_SESSION['cid']} GROUP BY ct.c_id";
                                         $gt_arr = $mysqli->query($gt_query)->fetch_array();
                                         $order_cost = $gt_arr["grandtotal"];
+                                        // Fetch income group of the customer
+                                        $income_group_query = "SELECT income_group FROM customer WHERE c_id = {$_SESSION['cid']}";
+                                        $income_group_result = $mysqli->query($income_group_query);
+                                        $income_group_row = $income_group_result->fetch_assoc();
+                                        $income_group = $income_group_row['income_group'];
+
+                                        // Calculate the discount
+                                        $discount_percentage = 0;
+                                        if ($income_group === 'B40') {
+                                            $discount_percentage = 25;
+                                        } elseif ($income_group === 'M40') {
+                                            $discount_percentage = 15;
+                                        }
+
+                                        // Calculate the discount amount
+                                        $discount_amount = ($order_cost * $discount_percentage) / 100;
+                                        // Calculate the final total after discount
+                                        $final_total = $order_cost - $discount_amount;
                                         printf("%.2f MYR", $order_cost);
-                                        if ($order_cost < 20) {
+                                        echo "<br>";
+                                        printf("%.2f MYR", $final_total);
+                                        if ($discount_percentage > 0) {
+                                            echo " (Discount Applied: $discount_percentage%)";
+                                        }
+                                        if ($order_cost < 5) {
                                             $min_cost = false;
                                             $no_order = true;
                                         } else {
@@ -293,11 +317,12 @@
                                 <h5 class="card-title fw-light">My Information</h5>
                                 <ul class="card-text list-unstyled m-0 p-0 small">
                                     <?php
-                                    $cust_query = "SELECT c_email FROM customer WHERE c_id = {$_SESSION['cid']} LIMIT 0,1";
+                                    $cust_query = "SELECT c_email, income_group FROM customer WHERE c_id = {$_SESSION['cid']} LIMIT 0,1";
                                     $cust_arr = $mysqli->query($cust_query)->fetch_array();
                                     ?>
                                     <li>Name: <?php echo $_SESSION["firstname"] . " " . $_SESSION["lastname"]; ?></li>
                                     <li>Email: <?php echo $cust_arr["c_email"] ?> </li>
+                                    <li>Income Group: <?php echo $cust_arr["income_group"] ?> </li>
                                 </ul>
                             </div>
                         </div>

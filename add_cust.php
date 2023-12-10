@@ -18,6 +18,7 @@ if ($pwd != $cfpwd) {
     $gender = $_POST["gender"];
     $email = $_POST["email"];
     $type = $_POST["type"];
+    $income_group = $_POST["income_group"];
 
     if ($gender == "-" || $type == "-") {
     ?>
@@ -56,8 +57,8 @@ if ($pwd != $cfpwd) {
     $result->free_result();
 
 
-    $query = "INSERT INTO customer (c_username,c_pwd,c_firstname,c_lastname,c_email,c_gender,c_type)
-        VALUES ('$username','$pwd','$firstname','$lastname','$email','$gender','$type');";
+    $query = "INSERT INTO customer (c_username,c_pwd,c_firstname,c_lastname,c_email,c_gender,c_type, income_group)
+        VALUES ('$username','$pwd','$firstname','$lastname','$email','$gender','$type', '$income_group');";
 
     $result = $mysqli->query($query);
     $new_customer_id = $mysqli->insert_id; // Get the last inserted id

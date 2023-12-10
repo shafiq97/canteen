@@ -84,6 +84,15 @@
                 </select>
                 <label for="gender">Your role</label>
             </div>
+            <div class="form-floating">
+                <select class="form-select mb-2" id="type" name="income_group">
+                    <option selected value="-">---</option>
+                    <option value="B40">B40</option>
+                    <option value="M40">M40</option>
+                    <option value="T20">T20</option>
+                </select>
+                <label for="gender">Your Income Group</label>
+            </div>
             <div class="form-floating mb-2" id="studentListContainer" style="display: none;">
                 <select class="form-select" id="studentList" name="student_id">
                     <!-- Student options will be dynamically added here -->
