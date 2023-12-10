@@ -17,6 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/menu.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>My Cart | EATERIO</title>
 </head>
 
@@ -299,7 +301,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <form method="POST" action="add_order.php">
+                        <form method="POST" action="add_order.php" id="paymentForm">
                             <div class="col mb-1">
                                 <div class="card px-2 px-md-4 pb-1 pb-md-2 border-0">
                                     <h5 class="card-title fw-light">Pick-Up Detail</h5>
@@ -370,6 +372,10 @@
                                 <?php } ?>
                             </div>
                         </form>
+                        <!-- NFC Prompt -->
+                        <div id="nfcPrompt" style="display: none;">
+                            <p class="alert alert-info">Please tap your NFC card</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -394,6 +400,41 @@
             <li class="ms-3"><a class="text-light" target="_blank" href=""><i class="bi bi-github"></i></a></li>
         </ul>
     </footer>
+    <script>
+        $(document).ready(function() {
+            var nfcDataReceived = false;
+
+            function checkForNfcData() {
+                fetch('http://localhost:5001/get_uid')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.uid) {
+                            // alert(data.uid)
+                            nfcDataReceived = true;
+                            $('#nfcPrompt').hide();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching NFC data:', error);
+                    });
+            }
+
+            // Call the checkForNfcData function every second to check for new NFC data.
+            setInterval(checkForNfcData, 1000);
+
+            // Intercept form submission.
+            $('#paymentForm').on('submit', function(event) {
+                if (!nfcDataReceived) {
+                    // If NFC data hasn't been received, show the prompt and prevent form submission.
+                    event.preventDefault();
+                    $('#nfcPrompt').show();
+                    alert('Please tap your NFC card to proceed.');
+                    // Resetting the NFC data received flag for subsequent checks.
+                    nfcDataReceived = false;
+                }
+            });
+        });
+    </script>
 </body>
 
 <!-- Apply class to omise payment button -->

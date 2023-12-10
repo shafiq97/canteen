@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="../css/login.css" rel="stylesheet">
     <link href="../img/ICON_F.png" rel="icon">
-    <title>Log in | EATERIO</title>
+    <title>Log in</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -33,6 +33,9 @@
                 <label for="floatingPassword">Password</label>
             </div>
             <button class="w-100 btn btn-success mb-3" type="submit">Log In</button>
+            <a class="nav nav-item text-decoration-none text-muted mb-2 small" href="../cust_login.php">
+                <i class="bi bi-shop me-2"></i>Customer Login
+            </a>
         </form>
     </div>
 
