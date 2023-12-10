@@ -50,6 +50,7 @@ if (empty($children_ids)) {
         orh.orh_id, 
         orh.orh_refcode, 
         orh.orh_ordertime, 
+        c.c_id,
         c.c_firstname, 
         c.c_lastname, 
         c.c_email,
@@ -298,13 +299,35 @@ if (empty($children_ids)) {
                                     echo $order_time;
                                     ?></td>
                                 <td><?php echo $row["c_firstname"] . " " . $row["c_lastname"]; ?></td>
-                                <td><?php echo number_format($row["order_total"], 2) . " MYR"; ?></td>
+                                <td>
+                                    <?php
+                                    $income_group_query = "SELECT income_group FROM customer WHERE c_id = {$row["c_id"]}";
+                                    $income_group_result = $mysqli->query($income_group_query);
+                                    $income_group_row = $income_group_result->fetch_assoc();
+                                    $income_group = $income_group_row['income_group'];
+
+                                    // Calculate the discount
+                                    $discount_percentage = 0;
+                                    if ($income_group === 'B40') {
+                                        $discount_percentage = 25;
+                                    } elseif ($income_group === 'M40') {
+                                        $discount_percentage = 15;
+                                    }
+
+                                    // Calculate the discount amount
+                                    $discount_amount = ($row['order_total'] * $discount_percentage) / 100;
+                                    // Calculate the final total after discount
+                                    $final_total = $row['order_total'] - $discount_amount;
+                                    echo number_format($final_total, 2) . " MYR";
+
+                                    ?>
+                                </td>
                                 <td>
                                     <?php if ($row["p_type"] == 'UNKN') { ?>
                                         <form action="parent_pay_order.php" method="post">
                                             <input type="hidden" name="orh_id" value="<?php echo $row["orh_id"]; ?>">
                                             <input type="hidden" name="payment_id" value="<?php echo $row["p_id"]; ?>">
-                                            <input type="hidden" name="order_total" value="<?php echo $row["order_total"]; ?>">
+                                            <input type="hidden" name="order_total" value="<?php echo $final_total; ?>">
                                             <input type="hidden" name="customer_name" value="<?php echo $row["c_firstname"] . " " . $row["c_lastname"]; ?>">
                                             <input type="hidden" name="customer_email" value="<?php echo $row["c_email"] // Put customer email here 
                                                                                                 ?>">

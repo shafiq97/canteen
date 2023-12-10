@@ -18,8 +18,8 @@ $customer_name = $_POST['customer_name'];
 $customer_email = $_POST['customer_email'];
 
 // Payment gateway data
-// $harga = $order_total; // Assuming the total price is already in the correct format
-$harga = 1; // Assuming the total price is already in the correct format
+$harga = $order_total; // Assuming the total price is already in the correct format
+// $harga = 1; // Assuming the total price is already in the correct format
 
 $nama = $customer_name;
 $email = $customer_email;

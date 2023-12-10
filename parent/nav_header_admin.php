@@ -29,13 +29,13 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <?php if(!isset($_SESSION['aid'])){ ?>
+                <?php if(!isset($_SESSION['parent_id'])){ ?>
                 <a class="btn btn-outline-secondary me-2" href="cust_regist.php">Sign Up</a>
                 <a class="btn btn-success" href="parent_login.php">Log In</a>
                 <?php }else{ ?>
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a href="admin_customer_detail.php?c_id=<?php echo $_SESSION["aid"]?>" class="nav-link px-2 text-dark">
+                        <a href="parent_customer_detail.php?c_id=<?php echo $_SESSION["parent_id"]?>" class="nav-link px-2 text-dark">
                             Welcome, <?=$_SESSION['firstname']?>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-circle" viewBox="0 0 16 16">
